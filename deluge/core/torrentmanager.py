@@ -455,7 +455,7 @@ class TorrentManager(component.Component):
         if options["compact_allocation"]:
             storage_mode = lt.storage_mode_t(2)
         else:
-            storage_mode = lt.storage_mode_t(1)
+            storage_mode = lt.storage_mode_t(0)
 
         # Fill in the rest of the add_torrent_params dictionary
         add_torrent_params["save_path"] = utf8_encoded(options["download_location"])
@@ -463,6 +463,7 @@ class TorrentManager(component.Component):
         add_torrent_params["paused"] = True
         add_torrent_params["auto_managed"] = False
         add_torrent_params["duplicate_is_error"] = True
+        add_torrent_params["seed_mode"] = options.get("seed_mode", False)
 
         # We need to pause the AlertManager momentarily to prevent alerts
         # for this torrent being generated before a Torrent object is created.
